@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
+
 import './sign-in.styles.scss'
+
 import FormInput from '../form-input/form-input.component'
 import CutomButton from '../custom-button/custom-button.component'
+
+import { signInWithGoogle } from '../../firebase/firebase.utils';
 
 export default class SignIn extends Component {
   constructor(props) {
@@ -37,7 +41,10 @@ export default class SignIn extends Component {
         <form onSubmit={this.handleSubmit}>
           <FormInput name='email' label='EMAIL' handleChange={this.handleChange} value={this.state.email} type='email' required />
           <FormInput name='password' label='PASSWORD' value={this.state.password} handleChange={this.handleChange} type='password' required />
-          <CutomButton type='submit'>SIGN IN</CutomButton>
+          <div className='buttons-container'>
+            <CutomButton type='submit'>SIGN IN</CutomButton>
+            <CutomButton onClick={signInWithGoogle} isGoogleSignIn>SIGN IN WITH GOOGLE</CutomButton>
+          </div>
         </form>
       </div>
     )

@@ -3,7 +3,12 @@ import './header.styles.scss';
 import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 
-export default function Header() {
+import { auth } from '../../firebase/firebase.utils'
+
+export default function Header({ currentUser }) {
+  const signinSignoutLink = currentUser ?
+    <div className='header__options__option' onClick={() => auth.signOut()}>SIGN OUT</div> :
+    <Link className='header__options__option' to='/signin'>SIGN IN</Link>
   return (
     <div className='header'>
       <Link className='header__logo-container' to='/'>
@@ -11,7 +16,8 @@ export default function Header() {
       </Link>
       <div className='header__options'>
         <Link className='header__options__option' to='/shop'>SHOP</Link>
-        <Link className='header__options__option' to='/contact;'>CONTACT</Link>
+        <Link className='header__options__option' to='/contact'>CONTACT</Link>
+        {signinSignoutLink}
       </div>
     </div>
   )
