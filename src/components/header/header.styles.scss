@@ -22,7 +22,7 @@
     .header__options__option {
       cursor: pointer;
       padding: 10px 15px;
-      text-transform: uppercase;
+      text-transform: capitalize;
 
       &.display-name {        
         cursor: default;

@@ -9,60 +9,63 @@ import { Route, Switch } from 'react-router-dom';
 
 import { auth, createUserProfileDocument } from './firebase/firebase.utils'
 
+import { connect } from 'react-redux';
+import { setCurrentUser } from '../src/actions/user/user.action';
 
+class App extends Component {
+unSubscribeFromAuth = null;
 
-export default class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentUser: null,
-    };
-  }
+componentDidMount() {
+  const { setCurrentUser } = this.props;
+  this.unSubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+    if (userAuth) {
+      const userRef = await createUserProfileDocument(userAuth);
 
-  unSubscribeFromAuth = null;
-
-  componentDidMount() {
-    this.unSubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
-
-        userRef.onSnapshot(snapshot => {          
-          this.setState({
-            currentUser: {
-              id: snapshot.id,
-              ...snapshot.data(),
-            }
-          }, () => {console.log(this.state)});
-        });
-      }
-
-      this.setState({ currentUser: null });
-    });
-  }
-
-  componentWillUnmount() {
-    if (typeof this.unSubscribeFromAuth === 'function') {
-      this.unSubscribeFromAuth();
-    }
-  }
-
-  render() {
-    return (
-      <div>
-        <Header currentUser={this.state.currentUser} />
-        <Switch>
-          <Route exact path='/' component={Homepage} />
-          <Route exact path='/shop' component={ShopPage} />
-          <Route exact path='/signin' component={SigninAndSignUpPage} />
-          {// <Route exact path='/shop/hats' component={HatsPage} />}
-            // <Route exact path='/shop/jackets' component={HatsPage} />
-            // <Route exact path='/shop/sneakers' component={HatsPage} />
-            // <Route exact path='/shop/womens' component={HatsPage} />
-            // <Route exact path='/shop/mens' component={HatsPage} />
+      userRef.onSnapshot(snapshot => {
+        setCurrentUser({
+          currentUser: {
+            id: snapshot.id,
+            ...snapshot.data(),
           }
-        </Switch>
-      </div>
-    )
+        });
+      });
+    }
+
+    setCurrentUser(null);
+  });
+}
+
+componentWillUnmount() {
+  if (typeof this.unSubscribeFromAuth === 'function') {
+    this.unSubscribeFromAuth();
   }
 }
+
+render() {
+  return (
+    <div>
+      <Header />
+      <Switch>
+        <Route exact path='/' component={Homepage} />
+        <Route exact path='/shop' component={ShopPage} />
+        <Route exact path='/signin' component={SigninAndSignUpPage} />
+        {// <Route exact path='/shop/hats' component={HatsPage} />}
+          // <Route exact path='/shop/jackets' component={HatsPage} />
+          // <Route exact path='/shop/sneakers' component={HatsPage} />
+          // <Route exact path='/shop/womens' component={HatsPage} />
+          // <Route exact path='/shop/mens' component={HatsPage} />
+        }
+      </Switch>
+    </div>
+  )
+}
+}
+
+const mapDispatchToprops = (dispatch) => {
+  return {
+    setCurrentUser: user => dispatch(setCurrentUser(user))
+  }
+}
+
+export default connect(null, mapDispatchToprops)(App)
 

@@ -3,9 +3,12 @@ import './header.styles.scss';
 import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 
-import { auth } from '../../firebase/firebase.utils'
+import { auth } from '../../firebase/firebase.utils';
 
-export default function Header({ currentUser }) {  
+import { connect } from 'react-redux';
+
+const Header = ({ currentUser }) => {
+  console.log(currentUser && currentUser.displayName)
   const signinSignoutLink = currentUser ?
     <div className='header__options__option' onClick={() => auth.signOut()}>SIGN OUT</div> :
     <Link className='header__options__option' to='/signin'>SIGN IN</Link>
@@ -18,8 +21,17 @@ export default function Header({ currentUser }) {
         <Link className='header__options__option' to='/shop'>SHOP</Link>
         <Link className='header__options__option' to='/contact'>CONTACT</Link>
         {signinSignoutLink}
-        <div className='header__options__option display-name'>{currentUser && currentUser.displayName}</div>
+        <div className='header__options__option display-name'>{currentUser && `Welcome, ${currentUser.currentUser.displayName}!`}</div>
       </div>
     </div>
   )
 }
+
+const mapStateToprops = (state) => {
+  console.log(state)
+  return {
+    currentUser: state.user.currentUser,
+  };
+}
+
+export default connect(mapStateToprops)(Header)
