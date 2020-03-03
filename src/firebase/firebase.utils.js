@@ -17,27 +17,6 @@ const config = {
 // Initialize Firebase
 firebase.initializeApp(config);
 
-// export const createUserProfileDocument = async (userAuth, additionalData) => {
-//     if (!userAuth) return;
-
-//     const ref = firestore.doc(`user/${userAuth.uid}`);
-
-//     const snapShot = await ref.get();
-//     const { displayName, email } = userAuth;
-//     if (!snapShot) {
-//         await ref.set({
-//             createdAt: new Date(),
-//             displayName,
-//             email,
-//             ...additionalData,
-//         });
-//     }
-
-//     console.log(ref);
-
-//     return ref;
-// }
-
 export const createUserProfileDocument = async (userAuth, additionalData) => {
     if (!userAuth) return;
 
@@ -60,7 +39,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
             console.log('error creating user', error.message);
         }
     }
-    console.log(userRef)
+
     return userRef;
 };
 
