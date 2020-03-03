@@ -1,0 +1,22 @@
+.sign-up {
+    display: flex;
+    flex-direction: column;
+    width: 380px;
+
+    .title {
+        margin: 10px 0;
+    }
+
+    .error {        
+        opacity: 0.5;
+        color: red;
+        font-weight: bold;
+        border: 1px solid red;
+        margin: 20px 0;        
+        align-items: center;
+        vertical-align: middle;
+        display: flex;
+        justify-content: center;
+        padding: 20px 10px;        
+    }
+}

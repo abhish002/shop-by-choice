@@ -39,13 +39,14 @@ export default class SignIn extends Component {
         <h2 className='sign-in__title'>I already have an account</h2>
         <span>Sign in with your email and password</span>
         <form onSubmit={this.handleSubmit}>
-          <FormInput name='email' label='EMAIL' handleChange={this.handleChange} value={this.state.email} type='email' required />
-          <FormInput name='password' label='PASSWORD' value={this.state.password} handleChange={this.handleChange} type='password' required />
+          <FormInput name='email' label='email' handleChange={this.handleChange} value={this.state.email} type='email' required />
+          <FormInput name='password' label='password' value={this.state.password} handleChange={this.handleChange} type='password' required />
           <div className='buttons-container'>
             <CutomButton type='submit'>SIGN IN</CutomButton>
             <CutomButton onClick={signInWithGoogle} isGoogleSignIn>SIGN IN WITH GOOGLE</CutomButton>
           </div>
         </form>
+
       </div>
     )
   }

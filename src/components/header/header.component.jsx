@@ -6,6 +6,7 @@ import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { auth } from '../../firebase/firebase.utils'
 
 export default function Header({ currentUser }) {
+  console.log(currentUser);
   const signinSignoutLink = currentUser ?
     <div className='header__options__option' onClick={() => auth.signOut()}>SIGN OUT</div> :
     <Link className='header__options__option' to='/signin'>SIGN IN</Link>

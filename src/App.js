@@ -7,7 +7,7 @@ import SigninAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up
 
 import { Route, Switch } from 'react-router-dom';
 
-import { auth } from './firebase/firebase.utils'
+import { auth, createUserProfileDocument } from './firebase/firebase.utils'
 
 
 
@@ -22,8 +22,22 @@ export default class App extends Component {
   unSubscribeFromAuth = null;
 
   componentDidMount() {
-    this.unSubscribeFromAuth = auth.onAuthStateChanged(user => {
-      this.setState({ currentUser: user });
+    this.unSubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+
+        userRef.onSnapshot(snapshot => {
+          console.log(snapshot)
+          this.setState({
+            currentUser: {
+              id: snapshot.id,
+              ...snapshot.data(),
+            }
+          }, () => console.log(this.state));
+        });
+      }
+
+      this.setState({ currentUser: null });
     });
   }
 

@@ -12,16 +12,65 @@ const config = {
     messagingSenderId: "493164146736",
     appId: "1:493164146736:web:8c73f396ab91674eea3df5",
     measurementId: "G-988FJQB8QF"
-  };
+};
 
-  // Initialize Firebase
-  firebase.initializeApp(config);  
+// Initialize Firebase
+firebase.initializeApp(config);
 
-  export const auth = firebase.auth();
-  export const firestore = firebase.firestore();
+// export const createUserProfileDocument = async (userAuth, additionalData) => {
+//     if (!userAuth) return;
 
-  const googleProvider = new firebase.auth.GoogleAuthProvider();
-  googleProvider.setCustomParameters({prompt: 'select_account'});
-  export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
+//     const ref = firestore.doc(`user/${userAuth.uid}`);
 
-  export default firebase;
+//     const snapShot = await ref.get();
+//     const { displayName, email } = userAuth;
+//     if (!snapShot) {
+//         await ref.set({
+//             createdAt: new Date(),
+//             displayName,
+//             email,
+//             ...additionalData,
+//         });
+//     }
+
+//     console.log(ref);
+
+//     return ref;
+// }
+
+export const createUserProfileDocument = async (userAuth, additionalData) => {
+    if (!userAuth) return;
+
+    const userRef = firestore.doc(`users/${userAuth.uid}`);
+
+    const snapShot = await userRef.get();
+
+    if (!snapShot.exists) {
+        const { displayName, email } = userAuth;
+        const createdAt = new Date();
+        try {
+            await userRef.set({
+                displayName,
+                email,
+                createdAt,
+                ...additionalData
+            });
+
+        } catch (error) {
+            console.log('error creating user', error.message);
+        }
+    }
+    console.log(userRef)
+    return userRef;
+};
+
+export const auth = firebase.auth();
+export const firestore = firebase.firestore();
+
+const googleProvider = new firebase.auth.GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: 'select_account' });
+export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
+
+
+
+export default firebase;
