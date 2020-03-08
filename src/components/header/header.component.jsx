@@ -7,7 +7,10 @@ import { auth } from '../../firebase/firebase.utils';
 
 import { connect } from 'react-redux';
 
-const Header = ({ currentUser }) => {
+import CartIcon from '../../components/cart-icon/cart-icon.component';
+import CartMenu from '../../components/cart-menu/cart-menu.component';
+
+const Header = ({ currentUser, hidden }) => {
   console.log(currentUser && currentUser.displayName)
   const signinSignoutLink = currentUser ?
     <div className='header__options__option' onClick={() => auth.signOut()}>SIGN OUT</div> :
@@ -22,15 +25,17 @@ const Header = ({ currentUser }) => {
         <Link className='header__options__option' to='/contact'>CONTACT</Link>
         {signinSignoutLink}
         <div className='header__options__option display-name'>{currentUser && `Welcome, ${currentUser.currentUser.displayName}!`}</div>
+        <CartIcon />
       </div>
+      {hidden ? '' : <CartMenu />}
     </div>
   )
 }
 
-const mapStateToprops = (state) => {
-  console.log(state)
+const mapStateToprops = ({ user: { currentUser } , cart: { hidden } }) => {
   return {
-    currentUser: state.user.currentUser,
+    currentUser,
+    hidden,
   };
 }
 
