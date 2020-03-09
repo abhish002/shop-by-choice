@@ -6,11 +6,11 @@ import { connect } from 'react-redux';
 
 import { toggleCart } from '../../actions/cart/cart.actions';
 
-function CartIcon({ toggleCart }) {
+function CartIcon({ toggleCart, cartItems }) {
   return (
     <div className='cart-icon' onClick={toggleCart}>
       <ShoppingCartIcon className='shopping-icon' />
-      <span className='item-count'>0</span>
+      <span className='item-count'>{cartItems.length}</span>
     </div>
   )
 };
@@ -19,4 +19,8 @@ const mapDispathToProps = dispatch => ({
   toggleCart: () => dispatch(toggleCart())
 });
 
-export default connect(null, mapDispathToProps)(CartIcon); 
+const mapStateToprops = ({ cart: { cartItems } }) => ({
+  cartItems,
+});
+
+export default connect(mapStateToprops, mapDispathToProps)(CartIcon); 
