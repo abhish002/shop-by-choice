@@ -10,6 +10,8 @@ import { connect } from 'react-redux';
 import CartIcon from '../../components/cart-icon/cart-icon.component';
 import CartMenu from '../../components/cart-menu/cart-menu.component';
 
+import { APPLICATION_TITLE } from '../../constants/application.constants';
+
 const Header = ({ currentUser, hidden }) => {
   console.log(currentUser && currentUser.displayName)
   const signinSignoutLink = currentUser ?
@@ -19,6 +21,7 @@ const Header = ({ currentUser, hidden }) => {
     <div className='header'>
       <Link className='header__logo-container' to='/'>
         <Logo />
+        <span className='header__logo-container__application-title'>{APPLICATION_TITLE}</span>
       </Link>
       <div className='header__options'>
         <Link className='header__options__option' to='/shop'>SHOP</Link>

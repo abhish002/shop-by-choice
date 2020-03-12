@@ -6,9 +6,23 @@
   margin-bottom: 25px;
 
   .header__logo-container {
+    display: flex;
     height: 100%;
-    width: 70px;
+    width: 100px;
     padding: 25px;
+
+    .header__logo-container__application-title {
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+      width: max-content;
+      position: absolute;
+      margin: 0px 70px;
+      top: 64px;
+      font-size: 1.2rem;
+      background: -webkit-linear-gradient(#eee, #333);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
   }
 
   .header__options {
@@ -17,14 +31,14 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    
+
 
     .header__options__option {
       cursor: pointer;
       padding: 10px 15px;
       text-transform: capitalize;
 
-      &.display-name {        
+      &.display-name {
         cursor: default;
       }
     }
