@@ -19,9 +19,10 @@ function CheckoutPage({ cartItems, cartTotal }) {
                 <div className='header-block'><span>Description</span></div>
                 <div className='header-block'><span></span>Quantity</div>
                 <div className='header-block'><span></span>Price</div>
+                <div className='header-block'><span></span>Remove</div>
             </div>
             {checkoutItems}
-            <div className='total'>Total: {cartTotal}</div>
+            <div className='total'>Total: ${cartTotal}</div>
         </div>
     )
 }
