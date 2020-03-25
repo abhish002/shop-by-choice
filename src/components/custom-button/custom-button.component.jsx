@@ -6,7 +6,7 @@ function CustomButton({ children, isGoogleSignIn, inverted, ...otherProps }) {
   const invertedButtonClass = `${inverted ? 'inverted' : ''}`;
 
   return (
-    <div className='custom-button'>
+    <div className='custom-button-container'>
       <button className={`${invertedButtonClass} ${customButtonClass} custom-button`} {...otherProps}>{children}</button>
     </div>
   )

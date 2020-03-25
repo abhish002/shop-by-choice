@@ -48,4 +48,11 @@
       width: 10%;
     }
   }
+
+  & .custom-button-container {
+    margin-top: 0;
+    position: absolute;
+    width: 100%;
+    top: 275px;
+  }
 }
