@@ -14,8 +14,7 @@ import CartMenu from '../../components/cart-menu/cart-menu.component';
 
 import { APPLICATION_TITLE } from '../../constants/application.constants';
 
-const Header = ({ currentUser, hidden }) => {
-  console.log(currentUser && currentUser.displayName)
+const Header = ({ currentUser, hidden }) => {  
   const signinSignoutLink = currentUser ?
     <div className='header__options__option' onClick={() => auth.signOut()}>SIGN OUT</div> :
     <Link className='header__options__option' to='/signin'>SIGN IN</Link>
