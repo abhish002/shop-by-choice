@@ -24,7 +24,7 @@ function CheckoutPage({ cartItems, cartTotal }) {
       </div>
       {checkoutItems}
       <div className='total'>Total: ${cartTotal}</div>
-      <StripeButton />
+      <StripeButton checkoutAmount={cartTotal}/>
       <div className='test-data-message'>
         <p>*Please use the following test card details for payments*</p>
         <p>4242 4242 4242 4242</p>
