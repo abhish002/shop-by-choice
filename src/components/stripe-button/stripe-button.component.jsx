@@ -15,7 +15,7 @@ export default function StripeButton({ checkoutAmount }) {
   }
 
   return (
-    <div className='strip-button'>
+    <div className='stripe-checkout-button'>
       <StripeCheckout
         label='Pay now'
         name='shop by choice ltd.'
