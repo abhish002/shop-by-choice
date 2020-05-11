@@ -36,7 +36,7 @@ class App extends Component {
         });
       }
 
-      setCurrentUser(null);
+      setCurrentUser(null);      
     });
   }
 
@@ -59,12 +59,6 @@ class App extends Component {
               <SigninAndSignUpPage />
           } />
           <Route exact path='/checkout' component={CheckoutPage} />
-          {// <Route exact path='/shop/hats' component={HatsPage} />}
-            // <Route exact path='/shop/jackets' component={HatsPage} />
-            // <Route exact path='/shop/sneakers' component={HatsPage} />
-            // <Route exact path='/shop/womens' component={HatsPage} />
-            // <Route exact path='/shop/mens' component={HatsPage} />
-          }
         </Switch>
       </div>
     )
@@ -72,7 +66,7 @@ class App extends Component {
 }
 
 const mapStateToprops = createStructuredSelector({
-  user: selectCurrentUser,
+  user: selectCurrentUser,  
 });
 
 const mapDispatchToprops = (dispatch) => {
