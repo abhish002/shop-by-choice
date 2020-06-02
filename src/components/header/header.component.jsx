@@ -1,5 +1,5 @@
 import React from 'react';
-import './header.styles.scss';
+
 import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 
@@ -14,25 +14,38 @@ import CartMenu from '../../components/cart-menu/cart-menu.component';
 
 import { APPLICATION_TITLE } from '../../constants/application.constants';
 
-const Header = ({ currentUser, hidden }) => {  
+import {
+  HeaderContainer,
+  LogoContainer,
+  ApplicationTitle,
+  Options,
+  Option,
+  DisplayName,
+} from './header.styles'
+
+const Header = ({ currentUser, hidden }) => {
   const signinSignoutLink = currentUser ?
     <div className='header__options__option' onClick={() => auth.signOut()}>SIGN OUT</div> :
     <Link className='header__options__option' to='/signin'>SIGN IN</Link>
   return (
-    <div className='header'>
-      <Link className='header__logo-container' to='/'>
+    <HeaderContainer>
+      <LogoContainer to='/'>
         <Logo />
-        <span className='header__logo-container__application-title'>{APPLICATION_TITLE}</span>
-      </Link>
-      <div className='header__options'>
-        <Link className='header__options__option' to='/shop'>SHOP</Link>
-        <Link className='header__options__option' to='/contact'>CONTACT</Link>
+        <ApplicationTitle>
+          {APPLICATION_TITLE}
+        </ApplicationTitle>
+      </LogoContainer>
+      <Options>
+        <Option to='/shop'>SHOP</Option>
+        <Option to='/contact'>CONTACT</Option>
         {signinSignoutLink}
-        <div className='header__options__option display-name'>{currentUser && `Welcome, ${currentUser.currentUser.displayName}!`}</div>
+        <DisplayName>
+          {currentUser && `Welcome, ${currentUser.currentUser.displayName}!`}
+        </DisplayName>
         <CartIcon />
-      </div>
+      </Options>
       {hidden ? '' : <CartMenu />}
-    </div>
+    </HeaderContainer>
   )
 }
 
