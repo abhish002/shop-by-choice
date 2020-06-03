@@ -26,11 +26,17 @@ class Shop extends Component {
     const collectionsref = firestore.collection('collections');
     const { updateCollections } = this.props;
 
-    collectionsref.onSnapshot(async snapshot => {
+    collectionsref.get().then(snapshot => {
       const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
       updateCollections(collectionsMap);
       this.setState({ isLoading: false });
     });
+
+    // collectionsref.onSnapshot(async snapshot => {
+    //   const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
+    //   updateCollections(collectionsMap);
+    //   this.setState({ isLoading: false });
+    // });
   }
 
   render() {
