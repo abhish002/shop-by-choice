@@ -39,7 +39,7 @@ const Header = ({ currentUser, hidden }) => {
         <Option to='/shop'>SHOP</Option>
         <Option to='/contact'>CONTACT</Option>
         {signinSignoutLink}
-        <DisplayName>
+        <DisplayName as='div'>
           {currentUser && `Welcome, ${currentUser.currentUser.displayName}!`}
         </DisplayName>
         <CartIcon />

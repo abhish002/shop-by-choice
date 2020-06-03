@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const HeaderContainer = styled.div`
@@ -36,16 +36,11 @@ export const Options = styled.div`
   cursor: pointer;
 `
 
-const optionStyles = css`  
+export const Option = styled(Link)`
   padding: 10px 15px;
   text-transform: capitalize;
 `
-
-export const Option = styled(Link)`
-  ${optionStyles}
-`
-export const DisplayName = styled.div`
+export const DisplayName = styled(Option)`
   cursor: default;
-  ${optionStyles}
 `
 
