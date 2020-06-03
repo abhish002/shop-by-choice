@@ -10,10 +10,6 @@ const getButtonStyles = ({ isGoogleSignIn, inverted }) => {
     return DefaultButton;
 }
 
-export const CustomButtonContainer = styled.div`
-    margin-top: 20px;
-`
-
 export const Button = styled.button`
     min-width: 165px;
     width: auto;
