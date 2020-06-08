@@ -1,14 +1,9 @@
 import React from 'react';
 import './with-spinner.styles.scss';
-
-import loadingImage from '../../assets/loader.gif';
+import Spinner from '../spinner/spinner.component';
 
 const WithSpinner = WrappedComponent => ({ isLoading, ...otherProps }) => {
-  return isLoading ? (
-    <div className='loader'>
-      <img className='loader__loading-image' src={loadingImage} alt='loading..' />
-    </div>
-  ) : (<WrappedComponent {...otherProps} />)
+  return isLoading ? <Spinner /> : <WrappedComponent {...otherProps} />
 };
 
 export default WithSpinner;

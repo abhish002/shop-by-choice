@@ -1,11 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, lazy, Suspense } from 'react';
 import './App.css';
 
-import Homepage from './pages/homepage/homepage.component';
-import ShopPage from './pages/shop/shop.component';
 import Header from '../src/components/header/header.component';
-import SigninAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
-import CheckoutPage from '../src/pages/checkout/checkout.component';
+import Spinner from './components/spinner/spinner.component';
 
 import { Route, Switch, Redirect } from 'react-router-dom';
 
@@ -16,6 +13,12 @@ import { setCurrentUser } from '../src/actions/user/user.action';
 
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../src/selectors/user/user.selector';
+
+const Homepage = lazy(() => import('./pages/homepage/homepage.component'));
+const ShopPage = lazy(() => import('./pages/shop/shop.component'));
+
+const SigninAndSignUpPage = lazy(() => import('./pages/sign-in-and-sign-up/sign-in-and-sign-up.component'));
+const CheckoutPage = lazy(() => import('../src/pages/checkout/checkout.component'));
 
 class App extends Component {
   unSubscribeFromAuth = null;
@@ -36,7 +39,7 @@ class App extends Component {
         });
       }
 
-      setCurrentUser(null);      
+      setCurrentUser(null);
     });
   }
 
@@ -51,14 +54,16 @@ class App extends Component {
       <div>
         <Header />
         <Switch>
-          <Route exact path='/' component={Homepage} />
-          <Route path='/shop' component={ShopPage} />
-          <Route exact path='/signin' render={() =>
-            this.props.user ?
-              (<Redirect to='/' />) :
-              <SigninAndSignUpPage />
-          } />
-          <Route exact path='/checkout' component={CheckoutPage} />
+          <Suspense fallback={<Spinner />}>
+            <Route exact path='/' component={Homepage} />
+            <Route path='/shop' component={ShopPage} />
+            <Route exact path='/signin' render={() =>
+              this.props.user ?
+                (<Redirect to='/' />) :
+                <SigninAndSignUpPage />
+            } />
+            <Route exact path='/checkout' component={CheckoutPage} />
+          </Suspense>
         </Switch>
       </div>
     )
@@ -66,7 +71,7 @@ class App extends Component {
 }
 
 const mapStateToprops = createStructuredSelector({
-  user: selectCurrentUser,  
+  user: selectCurrentUser,
 });
 
 const mapDispatchToprops = (dispatch) => {
