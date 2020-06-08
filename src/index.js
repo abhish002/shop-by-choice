@@ -31,9 +31,11 @@ const Application = (
   </Provider>
 );
 
-if (rootElement.hasChildNodes()) {
-  ReactDOM.hydrate(Application, rootElement)
-} else {
-  ReactDOM.render(Application, rootElement)
-}
+// if (rootElement.hasChildNodes()) {
+//   ReactDOM.hydrate(Application, rootElement)
+// } else {
+//   ReactDOM.render(Application, rootElement)
+// }
+ReactDOM.render(Application, rootElement);
+
 
