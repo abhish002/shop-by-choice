@@ -16,7 +16,7 @@ class Shop extends Component {
     fetchCollectionsStartAsync();
   }
 
-  render() {
+  render() {    
     const { match } = this.props;
     return (
       <div className='shop-page'>

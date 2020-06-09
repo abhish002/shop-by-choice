@@ -9,7 +9,6 @@ import { selectCollectionsForPreview } from '../../selectors/shop/shop.selector'
 
 const PreviewCollections = lazy(() => import('../preview-collections/preview-collections.component'));
 
-
 function CollectionsOverview({ collections }) {
   const shops = collections.map(({ id, ...otherCollectionsProps }) => (
     <Suspense fallback={<Spinner />}>
